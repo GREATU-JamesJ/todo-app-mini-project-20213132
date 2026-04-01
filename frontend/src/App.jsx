@@ -5,7 +5,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [title, setTitle] = useState('');
 
-  const API_URL = 'http://localhost:5000/api/todos';
+  const API_URL = '/api/todos';
 
   const fetchTodos = async () => {
     const res = await axios.get(API_URL);
