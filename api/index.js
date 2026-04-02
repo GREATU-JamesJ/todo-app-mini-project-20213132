@@ -29,20 +29,20 @@ const Todo = mongoose.model('Todo', todoSchema);
 
 // ===== API 엔드포인트 =====
 // 전체 Todo 목록 가져오기
-app.get('/api/todos', async (req, res) => {
+app.get('/todos', async (req, res) => {
   const todos = await Todo.find();
   res.json(todos);
 });
 
 // Todo 추가
-app.post('/api/todos', async (req, res) => {
+app.post('/todos', async (req, res) => {
   const newTodo = new Todo({ title: req.body.title });
   await newTodo.save();
   res.json(newTodo);
 });
 
 // Todo 완료 체크 (PUT)
-app.put('/api/todos/:id', async (req, res) => {
+app.put('/todos/:id', async (req, res) => {
   const todo = await Todo.findByIdAndUpdate(
     req.params.id,
     { completed: req.body.completed },
@@ -52,7 +52,7 @@ app.put('/api/todos/:id', async (req, res) => {
 });
 
 // Todo 삭제
-app.delete('/api/todos/:id', async (req, res) => {
+app.delete('/todos/:id', async (req, res) => {
   await Todo.findByIdAndDelete(req.params.id);
   res.json({ message: '✅ 삭제 완료!' });
 });
