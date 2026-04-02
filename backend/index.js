@@ -12,12 +12,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// MongoDB 연결
 mongoose.connect(process.env.MONGODB_URI, { family: 4 })
   .then(() => console.log('✅ MongoDB 연결 성공!'))
   .catch(err => console.error('❌ MongoDB 연결 실패:', err));
 
-// Todo 스키마
 const todoSchema = new mongoose.Schema({
   title: { type: String, required: true },
   completed: { type: Boolean, default: false }
@@ -25,18 +23,18 @@ const todoSchema = new mongoose.Schema({
 const Todo = mongoose.model('Todo', todoSchema);
 
 // ===== API 엔드포인트 (Vercel 별도 배포용) =====
-app.get('/todos', async (req, res) => {
+app.get('/api/todos', async (req, res) => {
   const todos = await Todo.find();
   res.json(todos);
 });
 
-app.post('/todos', async (req, res) => {
+app.post('/api/todos', async (req, res) => {
   const newTodo = new Todo({ title: req.body.title });
   await newTodo.save();
   res.json(newTodo);
 });
 
-app.put('/todos/:id', async (req, res) => {
+app.put('/api/todos/:id', async (req, res) => {
   const todo = await Todo.findByIdAndUpdate(
     req.params.id,
     { completed: req.body.completed },
@@ -45,12 +43,11 @@ app.put('/todos/:id', async (req, res) => {
   res.json(todo);
 });
 
-app.delete('/todos/:id', async (req, res) => {
+app.delete('/api/todos/:id', async (req, res) => {
   await Todo.findByIdAndDelete(req.params.id);
   res.json({ message: '✅ 삭제 완료!' });
 });
 
-// Vercel serverless
 const PORT = process.env.PORT || 5000;
 if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => console.log(`🚀 서버 실행 중: http://localhost:${PORT}`));
