@@ -5,7 +5,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [title, setTitle] = useState('');
 
-  const API_URL = 'https://todo-app-mini-project-20213132-iruh.vercel.app/api/todos';
+  const API_URL = 'https://todo-app-mini-project-20213132-iruh.vercel.app/todos';
   
 
   const fetchTodos = async () => {
