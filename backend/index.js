@@ -1,4 +1,4 @@
-// backend/index.js
+// backend/index.js - Vercel 별도 배포용 (최종 버전)
 const dns = require('node:dns');
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 
@@ -22,7 +22,7 @@ const todoSchema = new mongoose.Schema({
 });
 const Todo = mongoose.model('Todo', todoSchema);
 
-// ===== API 엔드포인트 (Vercel 별도 배포용) =====
+// ===== API 엔드포인트 =====
 app.get('/api/todos', async (req, res) => {
   const todos = await Todo.find();
   res.json(todos);
