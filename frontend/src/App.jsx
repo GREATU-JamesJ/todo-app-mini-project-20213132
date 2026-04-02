@@ -5,7 +5,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [title, setTitle] = useState('');
 
-  const API_URL = '/api/todos';
+  const API_URL = 'https://todo-app-mini-project-20213132-backend-xxx.vercel.app/api/todos';
 
   const fetchTodos = async () => {
     const res = await axios.get(API_URL);
